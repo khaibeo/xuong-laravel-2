@@ -1,5 +1,8 @@
 <?php
 
+use App\Events\OrderCreated;
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
@@ -36,4 +39,25 @@ Route::get('redis', function () {
     // $value = Cache::get('name');
 
     dd($value,$pass);
+});
+
+Route::get('order/create',function(){
+    $order = Order::create([
+        'product_name' => 'sản phẩm 1',
+        'quantity' => 2,
+        'price' => 100000,
+    ]);
+
+    $user = User::find(1);
+
+    event(new OrderCreated($order,$user));
+
+    return 'ok';
+});
+
+Route::get('notification', function () {
+    $user = User::find(1);
+    $notifications = $user->notifications;
+
+    dd($notifications);
 });
