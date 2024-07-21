@@ -6,11 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Queue\SerializesModels;
 
 class OrderNotification extends Notification implements ShouldQueue
 {
-    use Queueable, SerializesModels;
+    use Queueable;
 
     /**
      * Create a new notification instance.
@@ -29,7 +28,7 @@ class OrderNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -51,19 +50,18 @@ class OrderNotification extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    // public function toArray(object $notifiable): array
+    public function toArray(object $notifiable): array
+    {
+        return [
+            
+        ];
+    }
+
+    // public function toDatabase(object $notifiable)
     // {
     //     return [
     //         'order_id' => $this->order->id,
-    //         'message' => 'Your order has been placed successfully!'
+    //         'message' => 'Your order has been placed successfully!',
     //     ];
     // }
-
-    public function toDatabase(object $notifiable)
-    {
-        return [
-            'order_id' => $this->order->id,
-            'message' => 'Your order has been placed successfully!',
-        ];
-    }
 }

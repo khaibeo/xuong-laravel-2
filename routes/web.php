@@ -55,9 +55,9 @@ Route::get('order/create',function(){
     return 'ok';
 });
 
-Route::get('notification', function () {
-    $user = User::find(1);
-    $notifications = $user->notifications;
+// Route::get('notification', function () {
+//     $user = User::find(1);
+//     $notifications = $user->notifications;
 
-    dd($notifications);
-});
+//     dd($notifications);
+// });
